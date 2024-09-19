@@ -9,7 +9,7 @@ const postsRouter = express.Router();
 
 postsRouter.get('/', async (req, res, next) => {
   try {
-    const posts = await Post.find().sort({datetime: -1});
+    const posts = await Post.find().populate('user', 'username').sort({datetime: -1});
     const countComment = await Promise.all(posts.map(async (post) => {
       const count = await Comment.countDocuments({post: post._id});
       return {
@@ -26,7 +26,7 @@ postsRouter.get('/', async (req, res, next) => {
 
 postsRouter.get('/:id', async (req, res, next) => {
   try {
-    const post = await Post.findById(req.params.id).populate('user', 'username');
+    const post = await Post.findById(req.params.id);
 
     if (post === null) {
       return res.status(404).send({error: 'Post not found'});

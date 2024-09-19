@@ -29,3 +29,25 @@ export interface ValidationError {
 export interface GlobalError {
   error: string;
 }
+
+export interface Post {
+  _id: string;
+  user: {
+    _id: string;
+    username: string;
+  };
+  title: string;
+  description: string | null;
+  image: string | null;
+  datetime: string;
+}
+
+export interface PostWithCount extends Post {
+  countComment: number;
+}
+
+export interface PostMutation {
+  title: string;
+  description: string;
+  image: File | null;
+}
