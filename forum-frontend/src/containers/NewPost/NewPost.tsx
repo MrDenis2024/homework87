@@ -31,7 +31,7 @@ const NewPost = () => {
           <PostForm onSubmit={onFormSubmit} loading={loading} error={error} />
         </>
       ) : (
-        <Navigate to='/'/>
+        <Navigate to='/login'/>
       )}
     </>
   );
