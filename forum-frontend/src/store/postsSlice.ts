@@ -1,4 +1,4 @@
-import {PostWithComments, PostWithCount, ValidationError} from '../types';
+import {Post, PostWithCount, ValidationError} from '../types';
 import {createSlice} from '@reduxjs/toolkit';
 import {createPost, fetchOnePost, fetchPosts} from './postsThunks';
 
@@ -7,7 +7,7 @@ export interface PostsState {
   posts: PostWithCount[];
   createPostLoading: boolean;
   createPostError: ValidationError | null;
-  onePost: PostWithComments | null,
+  onePost: Post | null,
   onePostLoading: boolean,
 }
 

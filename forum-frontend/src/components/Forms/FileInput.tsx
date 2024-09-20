@@ -31,18 +31,18 @@ const FileInput: React.FC<Props> = ({onChange, error}) => {
 
   return (
     <div  className='form-group mb-4'>
-      <div className={`d-flex align-items-center  ${getFieldError('image') ? 'is-invalid' : ''}`}>
+      <div className={`d-flex flex-column  ${getFieldError('image') ? 'is-invalid' : ''}`}>
         <input type='file' style={{display: 'none'}} ref={inputRef} name='image' onChange={onFileChange}/>
-        <div className='col-1'>
+        <div className='mb-1'>
           <label htmlFor="image">Image:</label>
         </div>
         <div className='d-flex'>
-          <input type="text" id="image" className='form-control' value={filename} onClick={activateInput} readOnly/>
+          <input type="text" id="image" className='form-control w-25' value={filename} onClick={activateInput} readOnly/>
           <button type='button' className='btn btn-primary ms-5' onClick={activateInput}>Browse</button>
         </div>
       </div>
       {getFieldError('image') && (
-        <div className="invalid-feedback" style={{marginLeft: '100px'}}>
+        <div className="invalid-feedback">
           {getFieldError('image')}
         </div>
       )}

@@ -32,8 +32,8 @@ const run = async () => {
 
   const [firstPost, secondPost] = await Post.create({
     user: firstUser,
-    title: 'Хорошая погода',
-    description: 'Сегодня так солнечно',
+    title: 'Новый айфон 16',
+    description: 'В ночь с 9 на 10 сентября состоялась главная презентация Apple 2024 года, на которой представили новые модели iPhone. Стоит ли брать данный телефон?',
     image: null,
     datetime: new Date(),
   }, {
@@ -47,12 +47,12 @@ const run = async () => {
   await Comment.create({
     user: secondUser,
     post: firstPost,
-    comment: 'И вправду хороший день',
+    comment: 'Думаю не стоит брать',
     datetime: new Date(),
   }, {
     user: firstUser,
     post: firstPost,
-    comment: 'Без сомнений',
+    comment: 'Сложно ли переходит с Android на IOS?',
     datetime: new Date(),
   }, {
     user: firstUser,
@@ -62,7 +62,7 @@ const run = async () => {
   }, {
     user: secondUser,
     post: secondPost,
-    comment: 'Его зовут Филя',
+    comment: 'Красивые глаза!',
     datetime: new Date(),
   });
 

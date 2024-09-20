@@ -32,14 +32,7 @@ postsRouter.get('/:id', async (req, res, next) => {
       return res.status(404).send({error: 'Post not found'});
     }
 
-    const comments = await Comment.find({post: req.params.id}).populate('user', 'username').sort({datetime: -1});
-
-    const result = {
-      post,
-      comments,
-    }
-
-    return res.send(result);
+    return res.send(post);
   } catch (error) {
     return next(error);
   }

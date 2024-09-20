@@ -45,27 +45,28 @@ const PostForm: React.FC<Props> = ({onSubmit, loading, error}) => {
   };
 
   return (
-    <form className='mt-5' onSubmit={submitFormHandler}>
+    <form className='mt-5 w-75 mx-auto border rounded-4 border-2 p-4' onSubmit={submitFormHandler}>
       <h4 className='mb-5 text-center'>Add new post</h4>
-      <div className='form-group mb-3 d-flex align-items-center'>
-        <label htmlFor='title' className='col-1'>Title</label>
+      <div className='form-group mb-3'>
+        <label htmlFor='title' className='mb-1'>Title:</label>
         <input type='text' name='title' id='title' className='form-control' value={post.title} onChange={inputChangeHandler} required/>
       </div>
       <div className='form-group mb-3'>
-        <div className={`d-flex align-items-center ${getFieldError('description') ? 'is-invalid' : ''}`}>
-          <label htmlFor="description" className="col-1">Description</label>
+        <div className={`d-flex flex-column ${getFieldError('description') ? 'is-invalid' : ''}`}>
+          <label htmlFor="description" className="mb-2">Description:</label>
           <textarea id="description" name="description" cols={150} rows={3} className="border"
                     placeholder="Enter description" value={post.description} onChange={inputChangeHandler}></textarea>
         </div>
         {getFieldError('description') && (
-          <div className="invalid-feedback text-end">
+          <div className="invalid-feedback">
             {getFieldError('description')}
           </div>
         )}
       </div>
       <FileInput onChange={fileInputChangeHandler} error={error}/>
-      <div className='col-2 d-flex justify-content-end'>
-        <button type='submit' className='btn btn-success' disabled={loading}>{loading && <ButtonSpinner />}Save post</button>
+      <div className='d-flex'>
+        <button type='submit' className='btn btn-success ms-auto' disabled={loading}>{loading && <ButtonSpinner/>}Save post
+        </button>
       </div>
     </form>
   );

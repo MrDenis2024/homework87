@@ -63,7 +63,7 @@ export interface Comment {
   datetime: string;
 }
 
-export interface PostWithComments {
-  post: Post;
-  comments: Comment[],
+export interface CommentMutation {
+  post: string;
+  comment: string;
 }
