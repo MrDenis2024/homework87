@@ -19,13 +19,14 @@ const PostItem: React.FC<Props> = ({post}) => {
   return (
     <div className='d-flex align-items-center border border-3 border-info-subtle mb-3 p-3'>
       <img className='rounded-4 col-3' style={{width: '100px', maxHeight: '100px'}} src={postImage} alt={post.title}/>
-      <div className='col-10 ms-5'>
+      <div className='col-7 ms-5'>
         <div>
           <span>{dayjs(post.datetime).format('DD.MM.YYYY HH:mm')}</span>
           <span className='ms-1'>by {post.user.username}</span>
         </div>
         <Link to={`/post/${post._id}`} className='text-decoration-none' ><h4>{post.title}</h4></Link>
       </div>
+      <span className='col-2'>{post.countComment ? `Comments (${post.countComment})` : 'No comments'}</span>
     </div>
   );
 };

@@ -33,6 +33,10 @@ const CommentSchema = new Schema({
     type: String,
     required: true,
   },
+  datetime: {
+    type: Date,
+    required: true,
+  },
 });
 
 const Comment = mongoose.model('Comment', CommentSchema);

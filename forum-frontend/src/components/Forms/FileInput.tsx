@@ -1,12 +1,18 @@
 import React, {useRef, useState} from 'react';
+import {ValidationError} from '../../types';
 
 interface Props {
   onChange: React.ChangeEventHandler<HTMLInputElement>;
+  error: ValidationError | null;
 }
 
-const FileInput: React.FC<Props> = ({onChange}) => {
+const FileInput: React.FC<Props> = ({onChange, error}) => {
   const [filename, setFilename] = useState('');
   const inputRef = useRef<HTMLInputElement | null>(null);
+
+  const getFieldError = (fieldName: string) => {
+    return error?.errors[fieldName]?.message;
+  };
 
   const activateInput = () => {
     if(inputRef.current) {
@@ -24,16 +30,23 @@ const FileInput: React.FC<Props> = ({onChange}) => {
   };
 
   return (
-    <>
-      <input type='file' style={{display: 'none'}} ref={inputRef} name='image' onChange={onFileChange}/>
-      <div className='col-1'>
-        <label htmlFor="image">Image:</label>
+    <div  className='form-group mb-4'>
+      <div className={`d-flex align-items-center  ${getFieldError('image') ? 'is-invalid' : ''}`}>
+        <input type='file' style={{display: 'none'}} ref={inputRef} name='image' onChange={onFileChange}/>
+        <div className='col-1'>
+          <label htmlFor="image">Image:</label>
+        </div>
+        <div className='d-flex'>
+          <input type="text" id="image" className='form-control' value={filename} onClick={activateInput} readOnly/>
+          <button type='button' className='btn btn-primary ms-5' onClick={activateInput}>Browse</button>
+        </div>
       </div>
-      <div className="d-flex">
-        <input type="text" id="image" className='form-control' value={filename} onClick={activateInput} readOnly/>
-        <button type='button' className='btn btn-primary ms-5' onClick={activateInput}>Browse</button>
-      </div>
-    </>
+      {getFieldError('image') && (
+        <div className="invalid-feedback" style={{marginLeft: '100px'}}>
+          {getFieldError('image')}
+        </div>
+      )}
+    </div>
   );
 };
 

@@ -1,5 +1,5 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {PostMutation, PostWithCount, ValidationError} from '../types';
+import {PostMutation, PostWithComments, PostWithCount, ValidationError} from '../types';
 import axiosApi from '../axiosApi';
 import {isAxiosError} from 'axios';
 import {RootState} from '../app/store';
@@ -30,4 +30,9 @@ export const createPost = createAsyncThunk<void, PostMutation, {state: RootState
     }
     throw e;
   }
+});
+
+export const fetchOnePost = createAsyncThunk<PostWithComments, string>('posts/oneFetch', async (id) => {
+  const {data: post} = await axiosApi.get<PostWithComments>(`/posts/${id}`);
+  return post;
 });

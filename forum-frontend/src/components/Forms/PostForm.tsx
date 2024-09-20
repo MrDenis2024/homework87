@@ -63,9 +63,7 @@ const PostForm: React.FC<Props> = ({onSubmit, loading, error}) => {
           </div>
         )}
       </div>
-      <div className="form-group mb-4 d-flex align-items-center">
-        <FileInput onChange={fileInputChangeHandler} />
-      </div>
+      <FileInput onChange={fileInputChangeHandler} error={error}/>
       <div className='col-2 d-flex justify-content-end'>
         <button type='submit' className='btn btn-success' disabled={loading}>{loading && <ButtonSpinner />}Save post</button>
       </div>

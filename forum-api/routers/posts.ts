@@ -26,13 +26,13 @@ postsRouter.get('/', async (req, res, next) => {
 
 postsRouter.get('/:id', async (req, res, next) => {
   try {
-    const post = await Post.findById(req.params.id);
+    const post = await Post.findById(req.params.id).populate('user', 'username');
 
     if (post === null) {
       return res.status(404).send({error: 'Post not found'});
     }
 
-    const comments = await Comment.find({post: req.params.id}).populate('user', 'username');
+    const comments = await Comment.find({post: req.params.id}).populate('user', 'username').sort({datetime: -1});
 
     const result = {
       post,

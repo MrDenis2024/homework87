@@ -1,12 +1,14 @@
-import {PostWithCount, ValidationError} from '../types';
+import {PostWithComments, PostWithCount, ValidationError} from '../types';
 import {createSlice} from '@reduxjs/toolkit';
-import {createPost, fetchPosts} from './postsThunks';
+import {createPost, fetchOnePost, fetchPosts} from './postsThunks';
 
 export interface PostsState {
   fetchPostsLoading: boolean;
   posts: PostWithCount[];
   createPostLoading: boolean;
   createPostError: ValidationError | null;
+  onePost: PostWithComments | null,
+  onePostLoading: boolean,
 }
 
 const initialState: PostsState = {
@@ -14,6 +16,8 @@ const initialState: PostsState = {
   posts: [],
   createPostLoading: false,
   createPostError: null,
+  onePost: null,
+  onePostLoading: false,
 };
 
 export const postsSlice = createSlice({
@@ -39,12 +43,24 @@ export const postsSlice = createSlice({
       state.createPostLoading = false;
       state.createPostError = error || null;
     });
+
+    builder.addCase(fetchOnePost.pending, (state: PostsState) => {
+      state.onePost = null;
+      state.onePostLoading = true;
+    }).addCase(fetchOnePost.fulfilled, (state: PostsState, {payload: post}) => {
+      state.onePost = post;
+      state.onePostLoading = false;
+    }).addCase(fetchOnePost.rejected, (state: PostsState) => {
+      state.onePostLoading = false;
+    });
   },
   selectors: {
     selectorFetchPostsLoading: (state: PostsState) => state.fetchPostsLoading,
     selectorPosts: (state: PostsState) => state.posts,
     selectorCreatePostLoading: (state: PostsState) => state.createPostLoading,
     selectorCreatePostError: (state: PostsState) => state.createPostError,
+    selectorOnePost: (state: PostsState) => state.onePost,
+    selectorOnePostLoading: (state: PostsState) => state.onePostLoading,
   },
 });
 
@@ -54,4 +70,6 @@ export const {
   selectorPosts,
   selectorCreatePostLoading,
   selectorCreatePostError,
+  selectorOnePost,
+  selectorOnePostLoading,
 } = postsSlice.selectors;

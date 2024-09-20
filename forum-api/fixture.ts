@@ -47,19 +47,23 @@ const run = async () => {
   await Comment.create({
     user: secondUser,
     post: firstPost,
-    comment: 'И вправду хороший день'
+    comment: 'И вправду хороший день',
+    datetime: new Date(),
   }, {
     user: firstUser,
     post: firstPost,
-    comment: 'Без сомнений'
+    comment: 'Без сомнений',
+    datetime: new Date(),
   }, {
     user: firstUser,
     post: secondPost,
     comment: 'Как звать кота?',
+    datetime: new Date(),
   }, {
     user: secondUser,
     post: secondPost,
     comment: 'Его зовут Филя',
+    datetime: new Date(),
   });
 
   await db.close();

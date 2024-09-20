@@ -24,20 +24,20 @@ const PostSchema = new Schema<PostFields>({
   description: {
     type: String,
     validate: {
-      validator: function () {
-        return !(!this.image && !this.description);
+      validator(value?: string) {
+        return !!(value || this.image);
       },
-      message: 'Description is required if image is not provided',
+      message: 'Description is required if image is not provided!',
     },
   },
   image: {
     type: String,
     validate: {
-      validator: function () {
-        return !(!this.description && !this.image);
+      validator(value?: string) {
+        return !!(value || this.description);
       },
+      message: 'Image is required if description is not provided!',
     },
-    message: 'Image is required if description is not provided',
   },
   datetime: {
     type: Date,
